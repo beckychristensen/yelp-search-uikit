@@ -2,7 +2,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
-  init () {
+  private var yelpService: YelpServiceProtocol
+
+  init (yelpService: YelpServiceProtocol = YelpService()) {
+    self.yelpService = yelpService
     super.init(nibName: nil, bundle: nil)
 
     view.backgroundColor = .green
