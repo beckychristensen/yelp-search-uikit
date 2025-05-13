@@ -1,10 +1,3 @@
-//
-//  YelpSearchUIKitTests.swift
-//  YelpSearchUIKitTests
-//
-//  Created by Rebecca Christensen on 5/12/25.
-//
-
 import XCTest
 @testable import YelpSearchUIKit
 

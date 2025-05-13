@@ -22,4 +22,8 @@ struct Business: Codable {
     case rating
     case location
   }
+
+  var ratingDisplay: String {
+    return (rating?.description ?? "0.0") + " ★"
+  }
 }

@@ -91,8 +91,7 @@ final class BusinessCell: UITableViewCell {
     }
     streetAddressLabel.text = business.location.displayAddress.first
     cityLabel.text = business.location.displayAddress.count > 1 ? business.location.displayAddress.last : ""
-
-    ratingLabel.text = (business.rating?.description ?? "0.0") + " ★"
+    ratingLabel.text = business.ratingDisplay
 
     Task {
       do {

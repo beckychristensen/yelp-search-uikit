@@ -1,10 +1,3 @@
-//
-//  YelpSearchUIKitUITestsLaunchTests.swift
-//  YelpSearchUIKitUITests
-//
-//  Created by Rebecca Christensen on 5/12/25.
-//
-
 import XCTest
 
 final class YelpSearchUIKitUITestsLaunchTests: XCTestCase {
