@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     tableView.delegate = self
     tableView.rowHeight = BusinessCell.height
     tableView.estimatedRowHeight = BusinessCell.height
+    tableView.allowsSelection = false
     return tableView
   }()
 
