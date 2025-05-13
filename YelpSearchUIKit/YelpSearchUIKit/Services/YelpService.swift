@@ -31,7 +31,7 @@ struct YelpService: YelpServiceProtocol {
     urlRequest.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
     urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
 
-    let (data, response) = try await URLSession.shared.data(for: urlRequest)
+    let (data, response) = try await urlSession.data(for: urlRequest)
     let result = try JSONDecoder().decode(BusinessesResponse.self, from: data)
     print("[YelpService] fetched businesses: \(result)")
     return result.businesses
