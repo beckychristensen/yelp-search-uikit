@@ -17,7 +17,14 @@ class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view.
-  }
 
+    Task {
+      do {
+        let businesses = try await self.yelpService.queryIceCreamShops()
+        print("Fetched businesses: \(businesses)")
+      } catch {
+        print("Error fetching businesses: \(error)")
+      }
+    }
+  }
 }

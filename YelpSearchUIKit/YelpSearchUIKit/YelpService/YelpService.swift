@@ -6,20 +6,34 @@ protocol YelpServiceProtocol {
 
 struct YelpService: YelpServiceProtocol {
 
+  // TODO do not put API keys in code, use GitHub secrets
+  private let apiKey = "API_KEY"
+
   private var urlSession: URLSession = URLSession.shared
 
   func queryIceCreamShops() async throws -> Businesses {
-    let searchEndpoint = "https://api.yelp.com/v3/businesses/search"
-    let location = "location=47 Winter St. Boston, MA 02108"
-    let searchTerm = "term=ice cream"
-    let sortBy = "sort_by=best_match"
-    let limit = "limit=25"
-    guard let url = URL(string: "\(searchEndpoint)?\(location)&\(searchTerm)&\(sortBy)&\(limit)") else {
+    return try await queryBusinesses(searchTerm: "ice cream", location: "47 Winter St. Boston, MA 02108")
+  }
+
+  private func queryBusinesses(searchTerm: String, location: String) async throws -> Businesses {
+    guard let baseURL = URL(string: "https://api.yelp.com/v3/businesses/search") else {
       throw URLError(.badURL)
     }
 
-    let (data, response) = try await URLSession.shared.data(for: URLRequest(url: url))
-    let businesses = try JSONDecoder().decode(Businesses.self, from: data)
-    return businesses
+    let queryItems: [URLQueryItem] = [
+      URLQueryItem(name: "sort_by", value: "best_match"),
+      URLQueryItem(name: "limit", value: "25"),
+      URLQueryItem(name: "location", value: location),
+      URLQueryItem(name: "term", value: searchTerm)
+    ]
+    let url = baseURL.appending(queryItems: queryItems)
+    var urlRequest = URLRequest(url: url)
+    urlRequest.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+    urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+
+    let (data, response) = try await URLSession.shared.data(for: urlRequest)
+    let result = try JSONDecoder().decode(BusinessesResponse.self, from: data)
+    print("[YelpService] fetched businesses: \(result)")
+    return result.businesses
   }
 }

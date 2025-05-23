@@ -10,8 +10,8 @@ struct Business: Codable {
   var id: String
   var name: String
   var imageURL: String?
-  var distanceMeters: String?
-  var rating: String?
+  var distanceMeters: Double? // Yelp docs incorrectly label this as string
+  var rating: Double? // Yelp docs incorrectly label this as string
   var location: Location
 
   enum CodingKeys: String, CodingKey {
