@@ -1,16 +1,12 @@
 import UIKit
 
-protocol ImageServiceProtocol {
-
-}
-
-struct ImageService: ImageServiceProtocol {
+struct ImageService {
 
   private var urlSession: URLSession = URLSession.shared
   private var urlCache: URLCache = URLCache.shared
 
-  func fetchImage(id: String, size: Int) async throws -> UIImage {
-    guard let url = URL(string: "https://picsum.photos/seed/\(id)/\(size)/\(size)") else {
+  func fetchImage(urlString: String?) async throws -> UIImage {
+    guard let string = urlString, let url = URL(string: string) else {
       print("[ImageService] bad url")
       throw URLError(.badURL)
     }

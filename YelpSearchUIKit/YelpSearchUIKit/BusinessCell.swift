@@ -9,7 +9,8 @@ final class BusinessCell: UITableViewCell {
 
   private lazy var customImageView: UIImageView = {
     let imageView = UIImageView()
-    imageView.contentMode = .scaleAspectFit
+    imageView.contentMode = .scaleAspectFill
+    imageView.clipsToBounds = true
     return imageView
   }()
 
@@ -62,19 +63,20 @@ final class BusinessCell: UITableViewCell {
     contentView.addSubview(distanceLabel)
     self.addSubview(ratingLabel)
 
-    let imageWidth = Self.height
-    customImageView.frame = CGRect(x: 0, y: 0, width: imageWidth, height: imageWidth)
+    let imagePadding = 8.0
+    let imageWidth = Self.height - (imagePadding * 2.0)
+    customImageView.frame = CGRect(x: imagePadding, y: imagePadding, width: imageWidth, height: imageWidth)
     customImageView.backgroundColor = .gray
 
     let textX = customImageView.frame.maxX + 8.0
-    let textWidth = contentView.bounds.size.width - imageWidth
+    let textWidth = contentView.bounds.size.width - imageWidth - imagePadding
     nameLabel.frame = CGRect(x: textX, y: 8.0, width: textWidth, height: nameLabel.font.lineHeight)
     streetAddressLabel.frame = CGRect(x: textX, y: nameLabel.frame.maxY + 8.0, width: textWidth, height: streetAddressLabel.font.lineHeight)
     cityLabel.frame = CGRect(x: textX, y: streetAddressLabel.frame.maxY, width: textWidth, height: cityLabel.font.lineHeight)
     distanceLabel.frame = CGRect(x: textX, y: cityLabel.frame.maxY + 4.0, width: textWidth, height: distanceLabel.font.lineHeight)
     ratingLabel.frame = CGRect(x: self.bounds.size.width + 20.0, // there is no reason I should be able to add 20 here....
                                y: streetAddressLabel.frame.minY,
-                               width: imageWidth / 2.0,
+                               width: imageWidth,
                                height: ratingLabel.font.lineHeight)
 
   }
@@ -100,7 +102,7 @@ final class BusinessCell: UITableViewCell {
     Task {
       do {
         let id = business.id
-        let image = try await imageService.fetchImage(id: id, size: Int(Self.height * UIScreen.main.scale))
+        let image = try await imageService.fetchImage(urlString: business.imageURL)
         print("cell successfully fetched image: \(image)")
         updateImage(image, forBusinessID: id)
       } catch {
