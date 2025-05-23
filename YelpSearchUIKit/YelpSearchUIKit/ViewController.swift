@@ -4,6 +4,11 @@ class ViewController: UIViewController {
 
   static let cellIdentifier = "businessCell"
 
+  @MainActor
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    .portrait
+  }
+
   private var yelpService: YelpServiceProtocol
   private var businesses: Businesses = []
 
