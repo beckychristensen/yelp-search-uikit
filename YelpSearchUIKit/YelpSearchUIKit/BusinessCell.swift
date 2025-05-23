@@ -100,7 +100,7 @@ final class BusinessCell: UITableViewCell {
     Task {
       do {
         let id = business.id
-        let image = try await imageService.fetchImage(id: id, size: Int(Self.height))
+        let image = try await imageService.fetchImage(id: id, size: Int(Self.height * UIScreen.main.scale))
         print("cell successfully fetched image: \(image)")
         updateImage(image, forBusinessID: id)
       } catch {
