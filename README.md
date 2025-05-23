@@ -12,6 +12,7 @@
 
 
 
-https://github.com/user-attachments/assets/594294b8-dcc6-4415-af91-c94ef6cd2825
 
-![Simulator Screenshot - iPhone 16 Pro (18 3) - 2025-05-22 at 22 07 25](https://github.com/user-attachments/assets/c22b0eb0-1b5a-4a6d-a881-fb9883f79cc3)
+https://github.com/user-attachments/assets/5fd4b8be-9534-48dd-8b01-c72c2817125d
+
+![Simulator Screenshot - iPhone 16 Pro (18 3) - 2025-05-22 at 22 21 17](https://github.com/user-attachments/assets/73850e10-177f-49d9-b7b1-e2191e6eb860)
