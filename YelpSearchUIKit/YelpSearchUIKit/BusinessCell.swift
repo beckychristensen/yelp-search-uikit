@@ -85,10 +85,13 @@ final class BusinessCell: UITableViewCell {
 
   func updateBusiness(_ business: Business) {
     businessID = business.id
+    customImageView.image = nil
     nameLabel.text = business.name
     if let meters = business.distanceMeters {
       // TODO this should be localized
       distanceLabel.text = "\(Int(meters))m away"
+    } else {
+      distanceLabel.text = ""
     }
     streetAddressLabel.text = business.location.displayAddress.first
     cityLabel.text = business.location.displayAddress.count > 1 ? business.location.displayAddress.last : ""
