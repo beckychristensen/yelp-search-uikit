@@ -5,6 +5,7 @@ final class BusinessCell: UITableViewCell {
   static let height = 100.0
 
   private let imageService = ImageService()
+  private var businessID: String?
 
   private lazy var customImageView: UIImageView = {
     let imageView = UIImageView()
@@ -63,9 +64,8 @@ final class BusinessCell: UITableViewCell {
 
     let imageWidth = Self.height
     customImageView.frame = CGRect(x: 0, y: 0, width: imageWidth, height: imageWidth)
-    customImageView.backgroundColor = .blue
+    customImageView.backgroundColor = .gray
 
-    print("content width second: \(contentView.bounds.size.width)")
     let textX = customImageView.frame.maxX + 8.0
     let textWidth = contentView.bounds.size.width - imageWidth
     nameLabel.frame = CGRect(x: textX, y: 8.0, width: textWidth, height: nameLabel.font.lineHeight)
@@ -84,6 +84,7 @@ final class BusinessCell: UITableViewCell {
   }
 
   func updateBusiness(_ business: Business) {
+    businessID = business.id
     nameLabel.text = business.name
     if let meters = business.distanceMeters {
       // TODO this should be localized
@@ -95,9 +96,10 @@ final class BusinessCell: UITableViewCell {
 
     Task {
       do {
-        let image = try await imageService.fetchImage(id: business.id, size: Int(Self.height))
+        let id = business.id
+        let image = try await imageService.fetchImage(id: id, size: Int(Self.height))
         print("cell successfully fetched image: \(image)")
-        updateImage(image)
+        updateImage(image, forBusinessID: id)
       } catch {
         print("Error fetching business image: \(error)")
       }
@@ -105,7 +107,11 @@ final class BusinessCell: UITableViewCell {
   }
 
   @MainActor
-  private func updateImage(_ image: UIImage) {
+  private func updateImage(_ image: UIImage, forBusinessID id: String) {
+    guard businessID == id else {
+      // This image is not for the current cell contents. Ignore.
+      return
+    }
     customImageView.image = image
     setNeedsLayout()
   }

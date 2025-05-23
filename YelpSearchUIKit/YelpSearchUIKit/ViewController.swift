@@ -72,7 +72,6 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    print("setting cell height to: \(BusinessCell.height)")
     return BusinessCell.height
   }
 }
