@@ -21,7 +21,7 @@ struct YelpService: YelpServiceProtocol {
     }
 
     let queryItems: [URLQueryItem] = [
-      URLQueryItem(name: "sort_by", value: "best_match"),
+      URLQueryItem(name: "sort_by", value: "rating"), // options best_match, rating, review_count, distance
       URLQueryItem(name: "limit", value: "25"),
       URLQueryItem(name: "location", value: location),
       URLQueryItem(name: "term", value: searchTerm)
